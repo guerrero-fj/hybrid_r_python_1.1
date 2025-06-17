@@ -1,0 +1,65 @@
+---
+title: "Demo: R + Python in Quarto"
+format: html
+execute:
+  echo: true
+  warning: false
+  error: false
+  conda-env: quarto-env
+---
+
+# Mixed R & Python Workflow Demo
+
+This document demonstrates:
+
+1. An R plot using the built-in `mtcars` dataset  
+2. A Python wordcloud generated from a sample text, tokenized with NLTK  
+
+---
+
+## 1. R Plot Example
+
+```{r}
+# load ggplot2
+library(ggplot2)
+
+# scatterplot of mpg vs. weight
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point(color = "steelblue", size = 3) +
+  labs(
+    title = "Fuel Efficiency vs. Car Weight",
+    x = "Weight (1000 lbs)",
+    y = "Miles per Gallon"
+  ) +
+  theme_minimal()
+```
+
+## 2. Python Wordcloud Example
+```{python}
+import re
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+
+# Sample text for demonstration
+text = """Quarto makes it easy to weave together code and narrative.
+Reproducibility, transparency, and clarity are at the heart of 
+modern data science workflows. This hybrid R + Python example
+shows how seamlessly you can integrate both languages."""
+
+# Tokenization via a normal Python string (double-escaped backslash)
+pattern = "\\w+"
+tokens  = re.findall(pattern, text.lower())
+
+# Re-join tokens into a string for the wordcloud
+joined = " ".join(tokens)
+
+# Generate & display the wordcloud
+wc = WordCloud(width=800, height=400,
+               background_color="white").generate(joined)
+
+plt.figure(figsize=(10, 5))
+plt.imshow(wc, interpolation="bilinear")
+plt.axis("off")
+plt.title("Demo Wordcloud (regex tokenizer + wordcloud)")
+plt.show()
+```

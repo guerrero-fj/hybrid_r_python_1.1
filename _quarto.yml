@@ -1,0 +1,25 @@
+project:
+  type: website
+  output-dir: _site
+
+execute:
+  echo: true
+  warning: false
+  error: false
+  freeze: auto
+  python:
+    engine: reticulate
+    conda-env: quarto-env
+
+format:
+  html:
+    theme: journal
+    toc: true
+    number-sections: true
+    code-fold: false
+    code-tools: true
+
+editor:
+  code-folding: true
+  visual: false
+  source-view: true
